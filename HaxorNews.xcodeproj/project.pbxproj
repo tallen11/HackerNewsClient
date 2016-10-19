@@ -1,0 +1,324 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA961DB7022D004633CA /* AppDelegate.swift */; };
+		A434CA991DB7022D004633CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA981DB7022D004633CA /* ViewController.swift */; };
+		A434CA9C1DB7022E004633CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A434CA9A1DB7022E004633CA /* Main.storyboard */; };
+		A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A434CA9D1DB7022E004633CA /* HaxorNews.xcdatamodeld */; };
+		A434CAA11DB7022E004633CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A434CAA01DB7022E004633CA /* Assets.xcassets */; };
+		A434CAA41DB7022E004633CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A434CAA21DB7022E004633CA /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A434CA931DB7022D004633CA /* HaxorNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaxorNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A434CA961DB7022D004633CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A434CA981DB7022D004633CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A434CA9B1DB7022E004633CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A434CA9E1DB7022E004633CA /* HaxorNews.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HaxorNews.xcdatamodel; sourceTree = "<group>"; };
+		A434CAA01DB7022E004633CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A434CAA31DB7022E004633CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A434CAA51DB7022E004633CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A434CA901DB7022D004633CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A434CA8A1DB7022D004633CA = {
+			isa = PBXGroup;
+			children = (
+				A434CA951DB7022D004633CA /* HaxorNews */,
+				A434CA941DB7022D004633CA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A434CA941DB7022D004633CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A434CA931DB7022D004633CA /* HaxorNews.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A434CA951DB7022D004633CA /* HaxorNews */ = {
+			isa = PBXGroup;
+			children = (
+				A434CA961DB7022D004633CA /* AppDelegate.swift */,
+				A434CA981DB7022D004633CA /* ViewController.swift */,
+				A434CA9A1DB7022E004633CA /* Main.storyboard */,
+				A434CAA01DB7022E004633CA /* Assets.xcassets */,
+				A434CAA21DB7022E004633CA /* LaunchScreen.storyboard */,
+				A434CAA51DB7022E004633CA /* Info.plist */,
+				A434CA9D1DB7022E004633CA /* HaxorNews.xcdatamodeld */,
+			);
+			path = HaxorNews;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A434CA921DB7022D004633CA /* HaxorNews */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A434CAA81DB7022E004633CA /* Build configuration list for PBXNativeTarget "HaxorNews" */;
+			buildPhases = (
+				A434CA8F1DB7022D004633CA /* Sources */,
+				A434CA901DB7022D004633CA /* Frameworks */,
+				A434CA911DB7022D004633CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HaxorNews;
+			productName = HaxorNews;
+			productReference = A434CA931DB7022D004633CA /* HaxorNews.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A434CA8B1DB7022D004633CA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Tate Allen";
+				TargetAttributes = {
+					A434CA921DB7022D004633CA = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = P4XMVS2BWG;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A434CA8E1DB7022D004633CA /* Build configuration list for PBXProject "HaxorNews" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A434CA8A1DB7022D004633CA;
+			productRefGroup = A434CA941DB7022D004633CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A434CA921DB7022D004633CA /* HaxorNews */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A434CA911DB7022D004633CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A434CAA41DB7022E004633CA /* LaunchScreen.storyboard in Resources */,
+				A434CAA11DB7022E004633CA /* Assets.xcassets in Resources */,
+				A434CA9C1DB7022E004633CA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A434CA8F1DB7022D004633CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A434CA991DB7022D004633CA /* ViewController.swift in Sources */,
+				A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */,
+				A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A434CA9A1DB7022E004633CA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A434CA9B1DB7022E004633CA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A434CAA21DB7022E004633CA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A434CAA31DB7022E004633CA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A434CAA61DB7022E004633CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A434CAA71DB7022E004633CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A434CAA91DB7022E004633CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = P4XMVS2BWG;
+				INFOPLIST_FILE = HaxorNews/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tateallen.HaxorNews;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A434CAAA1DB7022E004633CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = P4XMVS2BWG;
+				INFOPLIST_FILE = HaxorNews/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tateallen.HaxorNews;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A434CA8E1DB7022D004633CA /* Build configuration list for PBXProject "HaxorNews" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A434CAA61DB7022E004633CA /* Debug */,
+				A434CAA71DB7022E004633CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A434CAA81DB7022E004633CA /* Build configuration list for PBXNativeTarget "HaxorNews" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A434CAA91DB7022E004633CA /* Debug */,
+				A434CAAA1DB7022E004633CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A434CA9D1DB7022E004633CA /* HaxorNews.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A434CA9E1DB7022E004633CA /* HaxorNews.xcdatamodel */,
+			);
+			currentVersion = A434CA9E1DB7022E004633CA /* HaxorNews.xcdatamodel */;
+			path = HaxorNews.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = A434CA8B1DB7022D004633CA /* Project object */;
+}
