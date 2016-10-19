@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		562DBC9C66E9EDFDD5F0A7A0 /* Pods_HaxorNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE435791C1BA87D379D89F2 /* Pods_HaxorNews.framework */; };
 		A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA961DB7022D004633CA /* AppDelegate.swift */; };
 		A434CA991DB7022D004633CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA981DB7022D004633CA /* ViewController.swift */; };
 		A434CA9C1DB7022E004633CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A434CA9A1DB7022E004633CA /* Main.storyboard */; };
 		A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A434CA9D1DB7022E004633CA /* HaxorNews.xcdatamodeld */; };
 		A434CAA11DB7022E004633CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A434CAA01DB7022E004633CA /* Assets.xcassets */; };
 		A434CAA41DB7022E004633CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A434CAA21DB7022E004633CA /* LaunchScreen.storyboard */; };
+		A434CACD1DB71E12004633CA /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CACC1DB71E12004633CA /* MainTableViewController.swift */; };
+		A434CAD11DB71EA8004633CA /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CAD01DB71EA8004633CA /* MainTableViewCell.swift */; };
+		A434CAD41DB72278004633CA /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CAD31DB72278004633CA /* ItemData.swift */; };
+		A434CAD61DB72319004633CA /* HNDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CAD51DB72319004633CA /* HNDataLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,13 @@
 		A434CAA01DB7022E004633CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A434CAA31DB7022E004633CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A434CAA51DB7022E004633CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A434CACC1DB71E12004633CA /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		A434CAD01DB71EA8004633CA /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		A434CAD31DB72278004633CA /* ItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
+		A434CAD51DB72319004633CA /* HNDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNDataLoader.swift; sourceTree = "<group>"; };
+		B2DE79F6FA067FEA339CAD46 /* Pods-HaxorNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HaxorNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HaxorNews/Pods-HaxorNews.debug.xcconfig"; sourceTree = "<group>"; };
+		D019921BFB3C98C163A2D05E /* Pods-HaxorNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HaxorNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-HaxorNews/Pods-HaxorNews.release.xcconfig"; sourceTree = "<group>"; };
+		FAE435791C1BA87D379D89F2 /* Pods_HaxorNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HaxorNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				562DBC9C66E9EDFDD5F0A7A0 /* Pods_HaxorNews.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FF1A4D4BA8386D12157B695 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAE435791C1BA87D379D89F2 /* Pods_HaxorNews.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8D48DBBB07D75FA8A13B1A1B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B2DE79F6FA067FEA339CAD46 /* Pods-HaxorNews.debug.xcconfig */,
+				D019921BFB3C98C163A2D05E /* Pods-HaxorNews.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A434CA8A1DB7022D004633CA = {
 			isa = PBXGroup;
 			children = (
 				A434CA951DB7022D004633CA /* HaxorNews */,
 				A434CA941DB7022D004633CA /* Products */,
+				8D48DBBB07D75FA8A13B1A1B /* Pods */,
+				3FF1A4D4BA8386D12157B695 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +88,7 @@
 		A434CA951DB7022D004633CA /* HaxorNews */ = {
 			isa = PBXGroup;
 			children = (
+				A434CACE1DB71E85004633CA /* Source */,
 				A434CA961DB7022D004633CA /* AppDelegate.swift */,
 				A434CA981DB7022D004633CA /* ViewController.swift */,
 				A434CA9A1DB7022E004633CA /* Main.storyboard */,
@@ -67,6 +100,33 @@
 			path = HaxorNews;
 			sourceTree = "<group>";
 		};
+		A434CACE1DB71E85004633CA /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A434CAD21DB7226D004633CA /* Data */,
+				A434CACF1DB71E89004633CA /* View Controllers */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		A434CACF1DB71E89004633CA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A434CACC1DB71E12004633CA /* MainTableViewController.swift */,
+				A434CAD01DB71EA8004633CA /* MainTableViewCell.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A434CAD21DB7226D004633CA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A434CAD31DB72278004633CA /* ItemData.swift */,
+				A434CAD51DB72319004633CA /* HNDataLoader.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +134,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A434CAA81DB7022E004633CA /* Build configuration list for PBXNativeTarget "HaxorNews" */;
 			buildPhases = (
+				C63CBF9D7043901BF2A418E6 /* [CP] Check Pods Manifest.lock */,
 				A434CA8F1DB7022D004633CA /* Sources */,
 				A434CA901DB7022D004633CA /* Frameworks */,
 				A434CA911DB7022D004633CA /* Resources */,
+				5FB573370EDA85B54F0C4107 /* [CP] Embed Pods Frameworks */,
+				5FAD4EC0D6D78B7604E08C15 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -100,6 +163,7 @@
 					A434CA921DB7022D004633CA = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = P4XMVS2BWG;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -135,14 +199,66 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5FAD4EC0D6D78B7604E08C15 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HaxorNews/Pods-HaxorNews-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5FB573370EDA85B54F0C4107 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HaxorNews/Pods-HaxorNews-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C63CBF9D7043901BF2A418E6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A434CA8F1DB7022D004633CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A434CACD1DB71E12004633CA /* MainTableViewController.swift in Sources */,
+				A434CAD61DB72319004633CA /* HNDataLoader.swift in Sources */,
+				A434CAD41DB72278004633CA /* ItemData.swift in Sources */,
 				A434CA991DB7022D004633CA /* ViewController.swift in Sources */,
 				A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */,
 				A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */,
+				A434CAD11DB71EA8004633CA /* MainTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,11 +377,17 @@
 		};
 		A434CAA91DB7022E004633CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2DE79F6FA067FEA339CAD46 /* Pods-HaxorNews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P4XMVS2BWG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HaxorNews/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tateallen.HaxorNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -274,11 +396,17 @@
 		};
 		A434CAAA1DB7022E004633CA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D019921BFB3C98C163A2D05E /* Pods-HaxorNews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P4XMVS2BWG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HaxorNews/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tateallen.HaxorNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -304,6 +432,7 @@
 				A434CAAA1DB7022E004633CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

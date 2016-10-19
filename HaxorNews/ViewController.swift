@@ -7,12 +7,24 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        Alamofire.request("https://hacker-news.firebaseio.com/v0/topstories.json").responseJSON { (response: DataResponse) in
+            if let json = response.result.value {
+                let a = json as! [Int]
+                Alamofire.request("https://hacker-news.firebaseio.com/v0/item/\(a[0]).json").responseJSON(completionHandler: { (itemResponse: DataResponse) in
+                    if let j = itemResponse.result.value {
+                        print(j)
+                    }
+                })
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
