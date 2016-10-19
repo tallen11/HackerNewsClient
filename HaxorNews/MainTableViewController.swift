@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class MainTableViewController: UITableViewController {
     
@@ -27,6 +28,9 @@ class MainTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
+        self.navigationController?.navigationBar.topItem?.title = "Hacker News"
+        
         HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
             if let stories = stories {
                 for i in 0..<stories.count {
@@ -42,7 +46,7 @@ class MainTableViewController: UITableViewController {
         if self.lastIndexLoaded == self.allStories.count - 1 {
             return
         }
-                
+        
         self.itemsToLoad = min(self.batchSize, self.allStories.count - (self.lastIndexLoaded + 1))
         self.loading = true
         self.itemsLoaded = 0
@@ -98,6 +102,14 @@ class MainTableViewController: UITableViewController {
         }
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = self.dataSource[indexPath.row]
+        if let url = data.url {
+            let safari = SFSafariViewController(url: url as URL)
+            self.present(safari, animated: true, completion: nil)
+        }
     }
 
     /*
