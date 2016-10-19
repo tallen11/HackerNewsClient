@@ -19,6 +19,7 @@ enum HNItemType {
 class ItemData {
     
     var itemID: Int
+    var rank: Int
     var fullyLoaded: Bool
     
     var title: String?
@@ -31,8 +32,9 @@ class ItemData {
     var time: NSDate?
     var type: HNItemType?
     
-    init(itemID: Int) {
+    init(itemID: Int, rank: Int) {
         self.itemID = itemID
+        self.rank = rank
         self.fullyLoaded = false
     }
     
@@ -51,8 +53,8 @@ class ItemData {
         self.type = self.typeStringToItemType(str: dict["type"] as! String)! // Fix this too!
         self.children = [ItemData]()
         if let childrenItemIDs = dict["kids"] as? [Int] {
-            for id in childrenItemIDs {
-                self.children!.append(ItemData(itemID: id))
+            for (index, id) in childrenItemIDs.enumerated() {
+                self.children!.append(ItemData(itemID: id, rank: index))
             }
         }
         

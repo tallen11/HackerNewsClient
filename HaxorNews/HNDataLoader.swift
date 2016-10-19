@@ -24,8 +24,8 @@ class HNDataLoader {
             if let json = response.result.value {
                 stories = [ItemData]()
                 let ids = json as! [Int]
-                for id in ids {
-                    stories!.append(ItemData(itemID: id))
+                for (index, id) in ids.enumerated() {
+                    stories!.append(ItemData(itemID: id, rank: index))
                 }
             }
             
@@ -43,5 +43,51 @@ class HNDataLoader {
                 completionBlock(nil)
             }
         }
+    }
+    
+    func loadCommentTree(item: ItemData, completionBlock: @escaping () -> ()) {
+        let items = Queue<ItemData>()
+        items.append(newElement: item)
+        
+        let totalComments = item.descendentsCount!
+        var count = 0
+        let dq = DispatchQueue(label: "com.tateallen.commentlock")
+        while !items.isEmpty() {
+            let i = items.dequeue()!
+            Alamofire.request(hnBaseURL.appendingPathComponent("item/\(i.itemID).json")!).responseJSON(completionHandler: { (response: DataResponse) in
+                if let json = response.result.value {
+                    let dict = json as! [String: AnyObject]
+                    i.setAllFields(dict: dict)
+                    dq.sync {
+                        count += 1
+                        for subItem in i.children! {
+                            items.append(newElement: subItem)
+                        }
+                    }
+                }
+                
+                if count >= totalComments {
+                    completionBlock()
+                }
+            })
+        }
+        
+        
+//        if let children = item.children {
+//            for child in children {
+//                if !child.fullyLoaded {
+//                    Alamofire.request(hnBaseURL.appendingPathComponent("item/\(child.itemID).json")!).responseJSON(completionHandler: { (response: DataResponse) in
+//                        if let json = response.result.value {
+//                            let dict = json as! [String: AnyObject]
+//                            child.setAllFields(dict: dict)
+//                            
+//                            self.loadCommentTree(item: child, completionBlock: { (items: [ItemData]?) in
+//                                
+//                            })
+//                        }
+//                    })
+//                }
+//            }
+//        }
     }
 }

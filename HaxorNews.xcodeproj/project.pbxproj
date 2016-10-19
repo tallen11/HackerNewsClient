@@ -18,6 +18,9 @@
 		A434CAD11DB71EA8004633CA /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CAD01DB71EA8004633CA /* MainTableViewCell.swift */; };
 		A434CAD41DB72278004633CA /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CAD31DB72278004633CA /* ItemData.swift */; };
 		A434CAD61DB72319004633CA /* HNDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CAD51DB72319004633CA /* HNDataLoader.swift */; };
+		A434CAD81DB753D9004633CA /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CAD71DB753D9004633CA /* CommentsViewController.swift */; };
+		A434CADD1DB7F15F004633CA /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CADC1DB7F15F004633CA /* CommentsTableViewCell.swift */; };
+		A434CADF1DB7FFEC004633CA /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CADE1DB7FFEC004633CA /* Queue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		A434CAD01DB71EA8004633CA /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		A434CAD31DB72278004633CA /* ItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		A434CAD51DB72319004633CA /* HNDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNDataLoader.swift; sourceTree = "<group>"; };
+		A434CAD71DB753D9004633CA /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		A434CADC1DB7F15F004633CA /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
+		A434CADE1DB7FFEC004633CA /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		B2DE79F6FA067FEA339CAD46 /* Pods-HaxorNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HaxorNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HaxorNews/Pods-HaxorNews.debug.xcconfig"; sourceTree = "<group>"; };
 		D019921BFB3C98C163A2D05E /* Pods-HaxorNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HaxorNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-HaxorNews/Pods-HaxorNews.release.xcconfig"; sourceTree = "<group>"; };
 		FAE435791C1BA87D379D89F2 /* Pods_HaxorNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HaxorNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +109,7 @@
 		A434CACE1DB71E85004633CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				A434CADB1DB7F14A004633CA /* Cells */,
 				A434CAD21DB7226D004633CA /* Data */,
 				A434CACF1DB71E89004633CA /* View Controllers */,
 			);
@@ -113,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				A434CACC1DB71E12004633CA /* MainTableViewController.swift */,
-				A434CAD01DB71EA8004633CA /* MainTableViewCell.swift */,
+				A434CAD71DB753D9004633CA /* CommentsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -123,8 +130,18 @@
 			children = (
 				A434CAD31DB72278004633CA /* ItemData.swift */,
 				A434CAD51DB72319004633CA /* HNDataLoader.swift */,
+				A434CADE1DB7FFEC004633CA /* Queue.swift */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		A434CADB1DB7F14A004633CA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A434CAD01DB71EA8004633CA /* MainTableViewCell.swift */,
+				A434CADC1DB7F15F004633CA /* CommentsTableViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,8 +273,11 @@
 				A434CAD61DB72319004633CA /* HNDataLoader.swift in Sources */,
 				A434CAD41DB72278004633CA /* ItemData.swift in Sources */,
 				A434CA991DB7022D004633CA /* ViewController.swift in Sources */,
+				A434CAD81DB753D9004633CA /* CommentsViewController.swift in Sources */,
+				A434CADF1DB7FFEC004633CA /* Queue.swift in Sources */,
 				A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */,
 				A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */,
+				A434CADD1DB7F15F004633CA /* CommentsTableViewCell.swift in Sources */,
 				A434CAD11DB71EA8004633CA /* MainTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class MainTableViewController: UITableViewController {
+class MainTableViewController: UITableViewController, MainTableViewCellDelegate {
     
     private var dataSource = [ItemData]()
     private var allStories = [ItemData]()
@@ -18,6 +18,7 @@ class MainTableViewController: UITableViewController {
     private var loading = false
     private var itemsToLoad = 0
     private var itemsLoaded = 0
+    private var freshlyLoadedStories = [ItemData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,19 +55,34 @@ class MainTableViewController: UITableViewController {
             HNDataLoader.instance.fullyLoadStory(story: self.allStories[i], completionBlock: { (story: ItemData?) in
                 if let story = story {
                     self.dataSource.append(story)
-                    self.tableView.beginUpdates()
-                    self.tableView.insertRows(at: [IndexPath(row: self.dataSource.count-1, section: 0)], with: UITableViewRowAnimation.automatic)
-                    self.tableView.endUpdates()
                 }
                 
                 self.itemsLoaded += 1
                 if self.itemsLoaded == self.itemsToLoad {
                     self.loading = false
+                    self.dataSource.sort(by: { (item1: ItemData, item2: ItemData) -> Bool in
+                        return item1.rank < item2.rank
+                    })
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        // self.tableView.reloadSections([0], with: UITableViewRowAnimation.fade)
+                    }
                 }
             })
         }
         
         self.lastIndexLoaded += self.itemsToLoad
+    }
+    
+    func viewComments(indexPath: IndexPath) {
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
+//        let data = dataSource[indexPath.row]
+//        vc.url = data.url
+//        vc.text = data.text
+//        vc.commentIDs = data.children
+//        self.present(vc, animated: true, completion: nil)
+        
+        self.performSegue(withIdentifier: "view_comments", sender: indexPath)
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,14 +104,14 @@ class MainTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "main_cell", for: indexPath) as! MainTableViewCell
 
         let data = self.dataSource[indexPath.row]
+        cell.rankLabel.text = "\(data.rank+1)"
         cell.titleLabel.text = data.title
-        if data.type! == HNItemType.Story {
-            
-        }
-        cell.urlLabel.text = "(\(data.url?.host ?? data.text ?? ""))"
+        cell.urlLabel.text = "(\(data.url?.host ?? "text"))"
         cell.authorTimeLabel.text = "by \(data.author ?? "unknown")"
-        cell.scoreLabel.text = "\(data.score ?? 0) ↑"
-        cell.commentsLabel.text = "\(data.descendentsCount ?? 0) comments"
+        cell.scoreLabel.text = "\(data.score ?? 0) ▴" // ↑
+        cell.commentsLabel.text = "\(data.descendentsCount ?? 0)"
+        cell.indexPath = indexPath
+        cell.delegate = self
         
         if indexPath.row + 5 >= lastIndexLoaded && !self.loading {
             self.loadNextBatch()
@@ -147,13 +163,38 @@ class MainTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "view_comments" {
+            if let indexPath = sender as? IndexPath {
+                let data = self.dataSource[indexPath.row]
+                let vc = segue.destination as! CommentsViewController
+                vc.story = data
+            }
+        }
     }
-    */
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "view_comments" && !(sender is IndexPath) {
+            return false
+        }
+        
+        return true
+    }
+    
+//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        let action = UITableViewRowAction(style: .default, title: "View Comments") { (action: UITableViewRowAction, indexPath: IndexPath) in
+//            print("kek")
+//        }
+//        
+//        action.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
+//        
+//        return [action]
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        
+//    }
 }
