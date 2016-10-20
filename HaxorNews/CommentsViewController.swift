@@ -17,6 +17,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
+        self.navigationItem.title = "Comments"
+        
         HNDataLoader.instance.loadTopLevelComments(item: self.story!) {
             for comment in self.story!.children! {
                 self.dataSource.append((item: comment, level: 1))
@@ -27,7 +30,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             })
             
             DispatchQueue.main.async {
-                self.commentsTableView.reloadSections([0], with: .fade)
+                self.commentsTableView.reloadSections([0], with: .bottom)
                 // self.commentsTableView.reloadData()
             }
         }
@@ -86,19 +89,11 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             for sub in item.children!.reversed() {
                 self.dataSource.insert((item: sub, level: level + 1), at: ip.row + 1)
                 self.commentsTableView.beginUpdates()
-                self.commentsTableView.insertRows(at: [IndexPath(row: ip.row + 1, section: 0)], with: .automatic)
+                self.commentsTableView.insertRows(at: [IndexPath(row: ip.row + 1, section: 0)], with: .bottom)
                 self.commentsTableView.endUpdates()
             }
         }
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let data = self.dataSource[indexPath.row]
-//        let font = UIFont(name: "Avenir Next", size: 12.0)
-//        let text = (data.item.text ?? "") as NSString
-//        var height: CGFloat = text.boundingRect(with: CGSize(width: tableView.frame.size.width, height: 100), options: ([.usesLineFragmentOrigin, .usesFontLeading]), attributes: [NSFontAttributeName: font], context: nil).size.height
-//        return height + 10.0
-//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -107,16 +102,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68.0
     }
-    /*
-     -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-     {
-     UIFont * font = [UIFont systemFontOfSize:15.0f];
-     NSString *text = [getYourTextArray objectAtIndex:indexPath.row];
-     CGFloat height = [text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width, maxHeight) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: font} context:nil].size.height;
-     
-     return height + additionalHeightBuffer;
-     }
-    */
     
     /*
     // MARK: - Navigation

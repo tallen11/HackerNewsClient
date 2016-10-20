@@ -31,6 +31,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
         self.navigationController?.navigationBar.topItem?.title = "Hacker News"
+        self.tableView.alpha = 0.0
         
         HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
             if let stories = stories {
@@ -38,12 +39,16 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
                     self.allStories.append(stories[i])
                 }
                 
-                self.loadNextBatch()
+                self.loadNextBatch(fromScrolling: false, completionBlock: {
+                    self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+                })
             }
         }
+        
+        self.refreshControl?.addTarget(self, action: #selector(MainTableViewController.refreshStories), for: .valueChanged)
     }
     
-    private func loadNextBatch() {
+    private func loadNextBatch(fromScrolling: Bool, completionBlock: (() -> ())?) {
         if self.lastIndexLoaded == self.allStories.count - 1 {
             return
         }
@@ -63,8 +68,15 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
                     self.dataSource.sort(by: { (item1: ItemData, item2: ItemData) -> Bool in
                         return item1.rank < item2.rank
                     })
+                    
+                    completionBlock?()
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
+//                        if fromScrolling {
+//                            self.tableView.reloadData()
+//                        } else {
+//                            self.tableView.reloadSections([0], with: .bottom)
+//                        }
                     }
                 }
             })
@@ -73,14 +85,35 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         self.lastIndexLoaded += self.itemsToLoad
     }
     
+    func refreshStories() {
+        self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
+            HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
+                if let stories = stories {
+                    self.dataSource.removeAll(keepingCapacity: true)
+                    self.allStories.removeAll(keepingCapacity: true)
+                    self.lastIndexLoaded = 0
+                    self.loading = false
+                    self.itemsToLoad = 0
+                    self.itemsLoaded = 0
+                    
+                    for i in 0..<stories.count {
+                        self.allStories.append(stories[i])
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadSections([0], with: .fade)
+                    }
+                    
+                    self.loadNextBatch(fromScrolling: false, completionBlock: {
+                        self.refreshControl?.endRefreshing()
+                        self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+                    })
+                }
+            }
+        }
+    }
+    
     func viewComments(indexPath: IndexPath) {
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
-//        let data = dataSource[indexPath.row]
-//        vc.url = data.url
-//        vc.text = data.text
-//        vc.commentIDs = data.children
-//        self.present(vc, animated: true, completion: nil)
-        
         self.performSegue(withIdentifier: "view_comments", sender: indexPath)
     }
 
@@ -113,7 +146,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         cell.delegate = self
         
         if indexPath.row + 5 >= lastIndexLoaded && !self.loading {
-            self.loadNextBatch()
+            self.loadNextBatch(fromScrolling: true, completionBlock: nil)
         }
 
         return cell
@@ -161,6 +194,14 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         return true
     }
     */
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 68.0
+    }
 
     // MARK: - Navigation
 

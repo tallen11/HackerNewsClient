@@ -51,7 +51,7 @@ class HNDataLoader {
             var commentsLoaded = 0
             let lock = DispatchQueue(label: "com.tateallen.commentlock")
             for child in children {
-                if !child.fullyLoaded {
+                // if !child.fullyLoaded {
                     self.fullyLoadItem(item: child, completionBlock: { (itemData: ItemData?) in
                         lock.sync {
                             commentsLoaded += 1
@@ -60,7 +60,7 @@ class HNDataLoader {
                             }
                         }
                     })
-                }
+                // }
             }
         }
     }
