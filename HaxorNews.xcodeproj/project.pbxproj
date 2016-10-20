@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		562DBC9C66E9EDFDD5F0A7A0 /* Pods_HaxorNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE435791C1BA87D379D89F2 /* Pods_HaxorNews.framework */; };
+		A404A1DF1DB86BC500D996B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A404A1DE1DB86BC500D996B1 /* Extensions.swift */; };
 		A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA961DB7022D004633CA /* AppDelegate.swift */; };
 		A434CA991DB7022D004633CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA981DB7022D004633CA /* ViewController.swift */; };
 		A434CA9C1DB7022E004633CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A434CA9A1DB7022E004633CA /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A404A1DE1DB86BC500D996B1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A434CA931DB7022D004633CA /* HaxorNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaxorNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A434CA961DB7022D004633CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A434CA981DB7022D004633CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				A434CADB1DB7F14A004633CA /* Cells */,
 				A434CAD21DB7226D004633CA /* Data */,
 				A434CACF1DB71E89004633CA /* View Controllers */,
+				A404A1DE1DB86BC500D996B1 /* Extensions.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */,
 				A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */,
 				A434CADD1DB7F15F004633CA /* CommentsTableViewCell.swift in Sources */,
+				A404A1DF1DB86BC500D996B1 /* Extensions.swift in Sources */,
 				A434CAD11DB71EA8004633CA /* MainTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

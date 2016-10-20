@@ -12,15 +12,26 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var commentsTableView: UITableView!
     var story: ItemData?
-    var dataSource = [ItemData]()
+    var dataSource = [(item: ItemData, level: Int)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Trying to load...")
-        HNDataLoader.instance.loadCommentTree(item: self.story!) {
-            print("Loaded all comments!")
+        HNDataLoader.instance.loadTopLevelComments(item: self.story!) {
+            for comment in self.story!.children! {
+                self.dataSource.append((item: comment, level: 1))
+            }
+            
+            self.dataSource.sort(by: { (data1: (item: ItemData, level: Int), data2: (item: ItemData, level: Int)) -> Bool in
+                return data1.item.rank < data2.item.rank
+            })
+            
+            DispatchQueue.main.async {
+                self.commentsTableView.reloadData()
+            }
         }
+        
+        // self.commentsTableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,8 +49,66 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "comment_cell", for: indexPath) as! CommentsTableViewCell
+        
+        let data = self.dataSource[indexPath.row].item
+        let level = self.dataSource[indexPath.row].level
+        if let deleted = data.deleted, deleted {
+            cell.infoLabel.text = "[deleted]"
+            cell.timeLabel.text = ""
+            cell.contentLabel.text = ""
+        } else {
+            cell.infoLabel.text = "\(data.author ?? "unknown")"
+            cell.timeLabel.text = data.time!.elapsedTimePretty()
+            cell.contentLabel.text = data.text?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil) ?? "error loading..."
+            cell.setIndent(level: level)
+        }
+        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.loadSubComments(parentIndexPath: indexPath)
+    }
+    
+    private func loadSubComments(parentIndexPath: IndexPath) {
+        let item = self.dataSource[parentIndexPath.row].item
+        let level = self.dataSource[parentIndexPath.row].level
+        let ip = IndexPath(row: parentIndexPath.row, section: parentIndexPath.section)
+        HNDataLoader.instance.loadTopLevelComments(item: item) {
+            for sub in item.children!.reversed() {
+                self.dataSource.insert((item: sub, level: level + 1), at: ip.row + 1)
+                self.commentsTableView.beginUpdates()
+                self.commentsTableView.insertRows(at: [IndexPath(row: ip.row + 1, section: 0)], with: .automatic)
+                self.commentsTableView.endUpdates()
+            }
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let data = self.dataSource[indexPath.row]
+//        let font = UIFont(name: "Avenir Next", size: 12.0)
+//        let text = (data.item.text ?? "") as NSString
+//        var height: CGFloat = text.boundingRect(with: CGSize(width: tableView.frame.size.width, height: 100), options: ([.usesLineFragmentOrigin, .usesFontLeading]), attributes: [NSFontAttributeName: font], context: nil).size.height
+//        return height + 10.0
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 68.0
+    }
+    /*
+     -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+     {
+     UIFont * font = [UIFont systemFontOfSize:15.0f];
+     NSString *text = [getYourTextArray objectAtIndex:indexPath.row];
+     CGFloat height = [text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width, maxHeight) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: font} context:nil].size.height;
+     
+     return height + additionalHeightBuffer;
+     }
+    */
     
     /*
     // MARK: - Navigation

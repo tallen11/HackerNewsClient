@@ -23,13 +23,15 @@ class ItemData {
     var fullyLoaded: Bool
     
     var title: String?
+    var deleted: Bool?
+    var dead: Bool?
     var url: NSURL?
     var text: String?
     var author: String?
     var descendentsCount: Int?
     var children: [ItemData]?
     var score: Int?
-    var time: NSDate?
+    var time: Date?
     var type: HNItemType?
     
     init(itemID: Int, rank: Int) {
@@ -46,10 +48,12 @@ class ItemData {
             self.text = text
         }
         
+        self.deleted = dict["deleted"] as? Bool
+        self.dead = dict["dead"] as? Bool
         self.author = dict["by"] as? String
         self.descendentsCount = dict["descendants"] as? Int
         self.score = dict["score"] as? Int
-        self.time = NSDate(timeIntervalSince1970: TimeInterval((dict["time"] as? Int)!)) // Fix this!
+        self.time = Date(timeIntervalSince1970: TimeInterval((dict["time"] as? Int)!)) // Fix this!
         self.type = self.typeStringToItemType(str: dict["type"] as! String)! // Fix this too!
         self.children = [ItemData]()
         if let childrenItemIDs = dict["kids"] as? [Int] {

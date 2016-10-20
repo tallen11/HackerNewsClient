@@ -52,7 +52,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         self.loading = true
         self.itemsLoaded = 0
         for i in max(self.lastIndexLoaded-1, 0)..<self.itemsToLoad + self.lastIndexLoaded {
-            HNDataLoader.instance.fullyLoadStory(story: self.allStories[i], completionBlock: { (story: ItemData?) in
+            HNDataLoader.instance.fullyLoadItem(item: self.allStories[i], completionBlock: { (story: ItemData?) in
                 if let story = story {
                     self.dataSource.append(story)
                 }
@@ -65,7 +65,6 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
                     })
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
-                        // self.tableView.reloadSections([0], with: UITableViewRowAnimation.fade)
                     }
                 }
             })
@@ -107,7 +106,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         cell.rankLabel.text = "\(data.rank+1)"
         cell.titleLabel.text = data.title
         cell.urlLabel.text = "(\(data.url?.host ?? "text"))"
-        cell.authorTimeLabel.text = "by \(data.author ?? "unknown")"
+        cell.authorTimeLabel.text = "by \(data.author ?? "unknown") \(data.time!.elapsedTimePretty())"
         cell.scoreLabel.text = "\(data.score ?? 0) ▴" // ↑
         cell.commentsLabel.text = "\(data.descendentsCount ?? 0)"
         cell.indexPath = indexPath

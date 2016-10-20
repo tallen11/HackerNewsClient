@@ -33,14 +33,34 @@ class HNDataLoader {
         }
     }
     
-    func fullyLoadStory(story: ItemData, completionBlock: @escaping (_: ItemData?) -> ()) {
-        Alamofire.request(hnBaseURL.appendingPathComponent("item/\(story.itemID).json")!).responseJSON { (response: DataResponse) in
+    func fullyLoadItem(item: ItemData, completionBlock: @escaping (_: ItemData?) -> ()) {
+        Alamofire.request(hnBaseURL.appendingPathComponent("item/\(item.itemID).json")!).responseJSON { (response: DataResponse) in
             if let json = response.result.value {
                 let dict = json as! [String: AnyObject]
-                story.setAllFields(dict: dict)
-                completionBlock(story)
+                item.setAllFields(dict: dict)
+                completionBlock(item)
             } else {
                 completionBlock(nil)
+            }
+        }
+    }
+    
+    func loadTopLevelComments(item: ItemData, completionBlock: @escaping () -> ()) {
+        if let children = item.children {
+            let commentsToLoad = children.count
+            var commentsLoaded = 0
+            let lock = DispatchQueue(label: "com.tateallen.commentlock")
+            for child in children {
+                if !child.fullyLoaded {
+                    self.fullyLoadItem(item: child, completionBlock: { (itemData: ItemData?) in
+                        lock.sync {
+                            commentsLoaded += 1
+                            if commentsLoaded >= commentsToLoad {
+                                completionBlock()
+                            }
+                        }
+                    })
+                }
             }
         }
     }
