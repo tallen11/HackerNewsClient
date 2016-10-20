@@ -27,7 +27,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             })
             
             DispatchQueue.main.async {
-                self.commentsTableView.reloadData()
+                self.commentsTableView.reloadSections([0], with: .fade)
+                // self.commentsTableView.reloadData()
             }
         }
         
@@ -59,7 +60,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             cell.infoLabel.text = "\(data.author ?? "unknown")"
             cell.timeLabel.text = data.time!.elapsedTimePretty()
-            cell.contentLabel.text = data.text?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil) ?? "error loading..."
+            do {
+                let str = (data.text ?? "error loading...") + String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", cell.contentLabel.font.fontName, cell.contentLabel.font.pointSize)
+                let htmlText = try NSAttributedString(data: str.data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                cell.contentLabel.attributedText = htmlText
+            } catch {
+                cell.contentLabel.text = data.text ?? "error loading..."
+            }
+            
             cell.setIndent(level: level)
         }
         

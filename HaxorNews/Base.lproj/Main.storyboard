@@ -121,10 +121,10 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kYn-wt-9Og" id="m07-tQ-aKp">
-                                            <frame key="frameInset" width="375" height="58"/>
+                                            <frame key="frameInset" width="375" height="58.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qy2-4j-50e">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qy2-4j-50e">
                                                     <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="14"/>
                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -148,20 +148,21 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="qy2-4j-50e" firstAttribute="leading" secondItem="m07-tQ-aKp" secondAttribute="leading" constant="8" id="4K1-B8-iDI"/>
-                                                <constraint firstItem="G9q-Fk-aP0" firstAttribute="top" secondItem="m07-tQ-aKp" secondAttribute="top" constant="12" id="Ezq-Ej-9kI"/>
-                                                <constraint firstItem="U7A-9U-JoN" firstAttribute="leading" secondItem="m07-tQ-aKp" secondAttribute="leading" constant="8" id="OBQ-uQ-5Yh"/>
-                                                <constraint firstAttribute="bottom" secondItem="U7A-9U-JoN" secondAttribute="bottom" constant="8" id="WWR-cY-K3P"/>
-                                                <constraint firstItem="U7A-9U-JoN" firstAttribute="top" secondItem="qy2-4j-50e" secondAttribute="bottom" constant="6" id="bTd-ff-O15"/>
-                                                <constraint firstAttribute="trailing" secondItem="U7A-9U-JoN" secondAttribute="trailing" constant="8" id="cud-5p-bB4"/>
-                                                <constraint firstItem="G9q-Fk-aP0" firstAttribute="leading" secondItem="qy2-4j-50e" secondAttribute="trailing" constant="8" id="nGv-Gl-7wt"/>
-                                                <constraint firstItem="qy2-4j-50e" firstAttribute="top" secondItem="m07-tQ-aKp" secondAttribute="top" constant="8" id="qep-gU-QeU"/>
+                                                <constraint firstItem="G9q-Fk-aP0" firstAttribute="top" secondItem="m07-tQ-aKp" secondAttribute="top" constant="10" id="ATN-I2-PMo"/>
+                                                <constraint firstItem="G9q-Fk-aP0" firstAttribute="leading" secondItem="qy2-4j-50e" secondAttribute="trailing" constant="8" id="CrQ-Ij-pva"/>
+                                                <constraint firstAttribute="bottom" secondItem="U7A-9U-JoN" secondAttribute="bottom" constant="8" id="Lbx-Wm-XSf"/>
+                                                <constraint firstItem="qy2-4j-50e" firstAttribute="top" secondItem="m07-tQ-aKp" secondAttribute="top" constant="8" id="MEA-yG-zjd"/>
+                                                <constraint firstItem="U7A-9U-JoN" firstAttribute="top" secondItem="qy2-4j-50e" secondAttribute="bottom" constant="8" id="O5r-AG-jgK"/>
+                                                <constraint firstItem="G9q-Fk-aP0" firstAttribute="leading" secondItem="qy2-4j-50e" secondAttribute="trailing" constant="8" id="S9A-3y-2iA"/>
+                                                <constraint firstItem="U7A-9U-JoN" firstAttribute="leading" secondItem="m07-tQ-aKp" secondAttribute="leading" constant="8" id="lGz-eg-qQf"/>
+                                                <constraint firstItem="qy2-4j-50e" firstAttribute="leading" secondItem="m07-tQ-aKp" secondAttribute="leading" constant="8" id="t1u-e6-00H"/>
+                                                <constraint firstAttribute="trailing" secondItem="U7A-9U-JoN" secondAttribute="trailing" constant="8" id="xoy-Ab-r8Q"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="contentIndexContraint" destination="OBQ-uQ-5Yh" id="0kF-S6-b7U"/>
+                                            <outlet property="contentIndexContraint" destination="lGz-eg-qQf" id="LCz-He-013"/>
                                             <outlet property="contentLabel" destination="U7A-9U-JoN" id="jOZ-DZ-5Wf"/>
-                                            <outlet property="infoIndexContraint" destination="4K1-B8-iDI" id="F7G-3j-sIQ"/>
+                                            <outlet property="infoIndexContraint" destination="t1u-e6-00H" id="yty-oL-23c"/>
                                             <outlet property="infoLabel" destination="qy2-4j-50e" id="Xjt-w0-DNs"/>
                                             <outlet property="timeLabel" destination="G9q-Fk-aP0" id="OEM-76-Nim"/>
                                         </connections>
