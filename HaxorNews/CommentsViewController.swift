@@ -19,6 +19,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
         self.navigationItem.title = "Comments"
+        self.commentsTableView.alpha = 0.0
         
         HNDataLoader.instance.loadTopLevelComments(item: self.story!) {
             for comment in self.story!.children! {
@@ -30,8 +31,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             })
             
             DispatchQueue.main.async {
-                self.commentsTableView.reloadSections([0], with: .bottom)
-                // self.commentsTableView.reloadData()
+                // self.commentsTableView.reloadSections([0], with: .bottom)
+                self.commentsTableView.reloadData()
+                self.commentsTableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
             }
         }
         
@@ -64,7 +66,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.infoLabel.text = "\(data.author ?? "unknown")"
             cell.timeLabel.text = data.time!.elapsedTimePretty()
             do {
-                let str = (data.text ?? "error loading...") + String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", cell.contentLabel.font.fontName, cell.contentLabel.font.pointSize)
+                let str = (data.text ?? "error loading...") + String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", cell.contentLabel.font.fontName, cell.contentLabel.font.pointSize).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 let htmlText = try NSAttributedString(data: str.data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
                 cell.contentLabel.attributedText = htmlText
             } catch {
@@ -79,6 +81,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.loadSubComments(parentIndexPath: indexPath)
+        self.commentsTableView.deselectRow(at: indexPath, animated: true)
     }
     
     private func loadSubComments(parentIndexPath: IndexPath) {

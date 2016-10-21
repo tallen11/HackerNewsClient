@@ -18,7 +18,6 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
     private var loading = false
     private var itemsToLoad = 0
     private var itemsLoaded = 0
-    private var freshlyLoadedStories = [ItemData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +30,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
         self.navigationController?.navigationBar.topItem?.title = "Hacker News"
+        self.navigationController?.view.backgroundColor = UIColor.white
         self.tableView.alpha = 0.0
         
         HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
@@ -48,7 +48,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         self.refreshControl?.addTarget(self, action: #selector(MainTableViewController.refreshStories), for: .valueChanged)
     }
     
-    private func loadNextBatch(fromScrolling: Bool, completionBlock: (() -> ())?) {
+    private func loadNextBatch(fromScrolling: Bool, fadeInOut: Bool = false, completionBlock: (() -> ())?) {
         if self.lastIndexLoaded == self.allStories.count - 1 {
             return
         }
@@ -69,14 +69,20 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
                         return item1.rank < item2.rank
                     })
                     
-                    completionBlock?()
                     DispatchQueue.main.async {
-                        self.tableView.reloadData()
-//                        if fromScrolling {
-//                            self.tableView.reloadData()
-//                        } else {
-//                            self.tableView.reloadSections([0], with: .bottom)
-//                        }
+                        if fadeInOut {
+                            self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
+                                self.tableView.reloadData()
+                                completionBlock?()
+                            }
+                        } else {
+                            if fromScrolling {
+                                self.tableView.reloadSections([0], with: .bottom)
+                            } else {
+                                self.tableView.reloadData()
+                            }
+                            completionBlock?()
+                        }
                     }
                 }
             })
@@ -86,29 +92,23 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
     }
     
     func refreshStories() {
-        self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
-            HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
-                if let stories = stories {
+        HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
+            if let stories = stories {
+                self.tableView.fadeOut(duration: 0.25, delay: 0.0, completion: { (finished: Bool) in
                     self.dataSource.removeAll(keepingCapacity: true)
                     self.allStories.removeAll(keepingCapacity: true)
                     self.lastIndexLoaded = 0
                     self.loading = false
                     self.itemsToLoad = 0
                     self.itemsLoaded = 0
+                    self.allStories.append(contentsOf: stories)
+                    self.tableView.reloadData()
                     
-                    for i in 0..<stories.count {
-                        self.allStories.append(stories[i])
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadSections([0], with: .fade)
-                    }
-                    
-                    self.loadNextBatch(fromScrolling: false, completionBlock: {
+                    self.loadNextBatch(fromScrolling: false, fadeInOut: false, completionBlock: {
                         self.refreshControl?.endRefreshing()
                         self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
                     })
-                }
+                })
             }
         }
     }
@@ -139,14 +139,14 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         cell.rankLabel.text = "\(data.rank+1)"
         cell.titleLabel.text = data.title
         cell.urlLabel.text = "(\(data.url?.host ?? "text"))"
-        cell.authorTimeLabel.text = "by \(data.author ?? "unknown") \(data.time!.elapsedTimePretty())"
-        cell.scoreLabel.text = "\(data.score ?? 0) ▴" // ↑
+        cell.authorTimeLabel.text = "by \(data.author ?? "unknown") \(data.time?.elapsedTimePretty() ?? "")"
+        cell.scoreLabel.text = "\(data.score ?? 0) ▴" //
         cell.commentsLabel.text = "\(data.descendentsCount ?? 0)"
         cell.indexPath = indexPath
         cell.delegate = self
         
         if indexPath.row + 5 >= lastIndexLoaded && !self.loading {
-            self.loadNextBatch(fromScrolling: true, completionBlock: nil)
+            self.loadNextBatch(fromScrolling: false, completionBlock: nil)
         }
 
         return cell
