@@ -20,6 +20,7 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var authorTimeLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
+    @IBOutlet weak var commentsContainer: UIView!
     var indexPath: IndexPath!
     var delegate: MainTableViewCellDelegate?
 
@@ -27,8 +28,8 @@ class MainTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         let tgr = UITapGestureRecognizer(target: self, action: #selector(MainTableViewCell.commentsTapped))
-        self.commentsLabel.isUserInteractionEnabled = true
-        self.commentsLabel.addGestureRecognizer(tgr)
+        self.commentsContainer.isUserInteractionEnabled = true
+        self.commentsContainer.addGestureRecognizer(tgr)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
