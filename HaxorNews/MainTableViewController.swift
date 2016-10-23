@@ -11,13 +11,16 @@ import SafariServices
 
 class MainTableViewController: UITableViewController, MainTableViewCellDelegate {
     
+//    private var dataSource = [ItemData]()
+//    private var allStories = [ItemData]()
+//    private var lastIndexLoaded = 0
+//    private let batchSize = 30
+//    private var loading = false
+//    private var itemsToLoad = 0
+//    private var itemsLoaded = 0
+    
+    private let storyLoader = StoryLoader()
     private var dataSource = [ItemData]()
-    private var allStories = [ItemData]()
-    private var lastIndexLoaded = 0
-    private let batchSize = 30
-    private var loading = false
-    private var itemsToLoad = 0
-    private var itemsLoaded = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,85 +35,107 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         self.navigationController?.navigationBar.topItem?.title = "Hacker News"
         self.navigationController?.view.backgroundColor = UIColor.white
         self.tableView.alpha = 0.0
-        
-        HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
-            if let stories = stories {
-                for i in 0..<stories.count {
-                    self.allStories.append(stories[i])
-                }
-                
-                self.loadNextBatch(fromScrolling: false, completionBlock: {
-                    self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
-                })
-            }
-        }
-        
         self.refreshControl?.addTarget(self, action: #selector(MainTableViewController.refreshStories), for: .valueChanged)
-    }
-    
-    private func loadNextBatch(fromScrolling: Bool, fadeInOut: Bool = false, completionBlock: (() -> ())?) {
-        if self.lastIndexLoaded == self.allStories.count - 1 {
-            return
-        }
         
-        self.itemsToLoad = min(self.batchSize, self.allStories.count - (self.lastIndexLoaded + 1))
-        self.loading = true
-        self.itemsLoaded = 0
-        for i in max(self.lastIndexLoaded-1, 0)..<self.itemsToLoad + self.lastIndexLoaded {
-            HNDataLoader.instance.fullyLoadItem(item: self.allStories[i], completionBlock: { (story: ItemData?) in
-                if let story = story {
-                    self.dataSource.append(story)
-                }
-                
-                self.itemsLoaded += 1
-                if self.itemsLoaded == self.itemsToLoad {
-                    self.loading = false
-                    self.dataSource.sort(by: { (item1: ItemData, item2: ItemData) -> Bool in
-                        return item1.rank < item2.rank
-                    })
-                    
-                    DispatchQueue.main.async {
-                        if fadeInOut {
-                            self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
-                                self.tableView.reloadData()
-                                completionBlock?()
-                            }
-                        } else {
-                            if fromScrolling {
-                                self.tableView.reloadSections([0], with: .bottom)
-                            } else {
-                                self.tableView.reloadData()
-                            }
-                            completionBlock?()
-                        }
-                    }
+        self.storyLoader.loadTopStoriesShallow { (storiesLoaded: Int) in
+            self.storyLoader.loadNextBatch(onFinished: { (items: [ItemData]) in
+                DispatchQueue.main.async {
+                    self.dataSource.removeAll(keepingCapacity: true)
+                    self.dataSource.append(contentsOf: items)
+                    self.tableView.reloadData()
+                    self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
                 }
             })
         }
         
-        self.lastIndexLoaded += self.itemsToLoad
+//        HNDataLoader.loadTopStories { (stories: [ItemData]?) in
+//            if let stories = stories {
+//                for i in 0..<stories.count {
+//                    self.allStories.append(stories[i])
+//                }
+//                
+//                self.loadNextBatch(fromScrolling: false, completionBlock: {
+//                    self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+//                })
+//            }
+//        }
     }
     
+//    private func loadNextBatch(fromScrolling: Bool, fadeInOut: Bool = false, completionBlock: (() -> ())?) {
+//        if self.lastIndexLoaded == self.allStories.count - 1 {
+//            return
+//        }
+//        
+//        self.itemsToLoad = min(self.batchSize, self.allStories.count - (self.lastIndexLoaded + 1))
+//        self.loading = true
+//        self.itemsLoaded = 0
+//        for i in max(self.lastIndexLoaded-1, 0)..<self.itemsToLoad + self.lastIndexLoaded {
+//            HNDataLoader.fullyLoadItem(item: self.allStories[i], completionBlock: { (story: ItemData?) in
+//                if let story = story {
+//                    self.dataSource.append(story)
+//                }
+//                
+//                self.itemsLoaded += 1
+//                if self.itemsLoaded == self.itemsToLoad {
+//                    self.loading = false
+//                    self.dataSource.sort(by: { (item1: ItemData, item2: ItemData) -> Bool in
+//                        return item1.rank < item2.rank
+//                    })
+//                    
+//                    DispatchQueue.main.async {
+//                        if fadeInOut {
+//                            self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
+//                                self.tableView.reloadData()
+//                                completionBlock?()
+//                            }
+//                        } else {
+//                            if fromScrolling {
+//                                self.tableView.reloadSections([0], with: .bottom)
+//                            } else {
+//                                self.tableView.reloadData()
+//                            }
+//                            completionBlock?()
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//        
+//        self.lastIndexLoaded += self.itemsToLoad
+//    }
+    
     func refreshStories() {
-        HNDataLoader.instance.loadTopStories { (stories: [ItemData]?) in
-            if let stories = stories {
-                self.tableView.fadeOut(duration: 0.25, delay: 0.0, completion: { (finished: Bool) in
+        self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
+            self.storyLoader.refreshTopStories(onFinished: { (items: [ItemData]) in
+                DispatchQueue.main.async {
                     self.dataSource.removeAll(keepingCapacity: true)
-                    self.allStories.removeAll(keepingCapacity: true)
-                    self.lastIndexLoaded = 0
-                    self.loading = false
-                    self.itemsToLoad = 0
-                    self.itemsLoaded = 0
-                    self.allStories.append(contentsOf: stories)
+                    self.dataSource.append(contentsOf: items)
                     self.tableView.reloadData()
-                    
-                    self.loadNextBatch(fromScrolling: false, fadeInOut: false, completionBlock: {
-                        self.refreshControl?.endRefreshing()
-                        self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
-                    })
-                })
-            }
+                    self.refreshControl?.endRefreshing()
+                    self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+                }
+            })
         }
+        
+//        HNDataLoader.loadTopStories { (stories: [ItemData]?) in
+//            if let stories = stories {
+//                self.tableView.fadeOut(duration: 0.25, delay: 0.0, completion: { (finished: Bool) in
+//                    self.dataSource.removeAll(keepingCapacity: true)
+//                    self.allStories.removeAll(keepingCapacity: true)
+//                    self.lastIndexLoaded = 0
+//                    self.loading = false
+//                    self.itemsToLoad = 0
+//                    self.itemsLoaded = 0
+//                    self.allStories.append(contentsOf: stories)
+//                    self.tableView.reloadData()
+//                    
+//                    self.loadNextBatch(fromScrolling: false, fadeInOut: false, completionBlock: {
+//                        self.refreshControl?.endRefreshing()
+//                        self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+//                    })
+//                })
+//            }
+//        }
     }
     
     func viewComments(indexPath: IndexPath) {
@@ -129,24 +154,30 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return self.dataSource.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "main_cell", for: indexPath) as! MainTableViewCell
 
         let data = self.dataSource[indexPath.row]
-        cell.rankLabel.text = "\(data.rank+1)"
-        cell.titleLabel.text = data.title
-        cell.urlLabel.text = "(\(data.url?.host ?? "text"))"
+        cell.rankLabel.text = "\(data.rank)"
+        cell.titleLabel.text = data.title ?? "Error loading..."
+        cell.urlLabel.text = "(\(data.url?.host ?? "text story"))"
         cell.authorTimeLabel.text = "by \(data.author ?? "unknown") \(data.time?.elapsedTimePretty() ?? "")"
         cell.scoreLabel.text = "\(data.score ?? 0) ▴" //
         cell.commentsLabel.text = "\(data.descendentsCount ?? 0)"
         cell.indexPath = indexPath
         cell.delegate = self
         
-        if indexPath.row + 5 >= lastIndexLoaded && !self.loading {
-            self.loadNextBatch(fromScrolling: false, completionBlock: nil)
+        if self.storyLoader.shouldLoadNextBatch(row: indexPath.row, buffer: 5) {
+            self.storyLoader.loadNextBatch(onFinished: { (items: [ItemData]) in
+                DispatchQueue.main.async {
+                    self.dataSource.removeAll(keepingCapacity: true)
+                    self.dataSource.append(contentsOf: items)
+                    self.tableView.reloadData()
+                }
+            })
         }
 
         return cell

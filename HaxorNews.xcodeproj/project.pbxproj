@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		562DBC9C66E9EDFDD5F0A7A0 /* Pods_HaxorNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE435791C1BA87D379D89F2 /* Pods_HaxorNews.framework */; };
 		A404A1DF1DB86BC500D996B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A404A1DE1DB86BC500D996B1 /* Extensions.swift */; };
+		A41C887A1DBC6CE200A79ABE /* StoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C88791DBC6CE200A79ABE /* StoryLoader.swift */; };
 		A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA961DB7022D004633CA /* AppDelegate.swift */; };
-		A434CA991DB7022D004633CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434CA981DB7022D004633CA /* ViewController.swift */; };
 		A434CA9C1DB7022E004633CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A434CA9A1DB7022E004633CA /* Main.storyboard */; };
 		A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A434CA9D1DB7022E004633CA /* HaxorNews.xcdatamodeld */; };
 		A434CAA11DB7022E004633CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A434CAA01DB7022E004633CA /* Assets.xcassets */; };
@@ -26,9 +26,9 @@
 
 /* Begin PBXFileReference section */
 		A404A1DE1DB86BC500D996B1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A41C88791DBC6CE200A79ABE /* StoryLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryLoader.swift; sourceTree = "<group>"; };
 		A434CA931DB7022D004633CA /* HaxorNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaxorNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A434CA961DB7022D004633CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A434CA981DB7022D004633CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A434CA9B1DB7022E004633CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A434CA9E1DB7022E004633CA /* HaxorNews.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HaxorNews.xcdatamodel; sourceTree = "<group>"; };
 		A434CAA01DB7022E004633CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,7 +98,6 @@
 			children = (
 				A434CACE1DB71E85004633CA /* Source */,
 				A434CA961DB7022D004633CA /* AppDelegate.swift */,
-				A434CA981DB7022D004633CA /* ViewController.swift */,
 				A434CA9A1DB7022E004633CA /* Main.storyboard */,
 				A434CAA01DB7022E004633CA /* Assets.xcassets */,
 				A434CAA21DB7022E004633CA /* LaunchScreen.storyboard */,
@@ -134,6 +133,7 @@
 				A434CAD31DB72278004633CA /* ItemData.swift */,
 				A434CAD51DB72319004633CA /* HNDataLoader.swift */,
 				A434CADE1DB7FFEC004633CA /* Queue.swift */,
+				A41C88791DBC6CE200A79ABE /* StoryLoader.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -275,13 +275,13 @@
 				A434CACD1DB71E12004633CA /* MainTableViewController.swift in Sources */,
 				A434CAD61DB72319004633CA /* HNDataLoader.swift in Sources */,
 				A434CAD41DB72278004633CA /* ItemData.swift in Sources */,
-				A434CA991DB7022D004633CA /* ViewController.swift in Sources */,
 				A434CAD81DB753D9004633CA /* CommentsViewController.swift in Sources */,
 				A434CADF1DB7FFEC004633CA /* Queue.swift in Sources */,
 				A434CA971DB7022D004633CA /* AppDelegate.swift in Sources */,
 				A434CA9F1DB7022E004633CA /* HaxorNews.xcdatamodeld in Sources */,
 				A434CADD1DB7F15F004633CA /* CommentsTableViewCell.swift in Sources */,
 				A404A1DF1DB86BC500D996B1 /* Extensions.swift in Sources */,
+				A41C887A1DBC6CE200A79ABE /* StoryLoader.swift in Sources */,
 				A434CAD11DB71EA8004633CA /* MainTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

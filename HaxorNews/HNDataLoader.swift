@@ -11,14 +11,44 @@ import Alamofire
 
 class HNDataLoader {
     
-    static let instance = HNDataLoader()
-    private let hnBaseURL = NSURL(string: "https://hacker-news.firebaseio.com/v0")!
+    static let hnBaseURL = NSURL(string: "https://hacker-news.firebaseio.com/v0")!
     
-    private init() {
-        
+    static func loadItemsShallowly(subPath: String, onFinished: @escaping (_ items: [ItemData]?) -> ()) {
+        if let fullURL = hnBaseURL.appendingPathComponent(subPath) {
+            Alamofire.request(fullURL).responseJSON(completionHandler: { (response: DataResponse) in
+                if let json = response.result.value, let ids = json as? [Int] {
+                    var items = [ItemData]()
+                    items.append(contentsOf: ids.enumerated().map({ (offset: Int, element: Int) -> ItemData in
+                        return ItemData(itemID: element, rank: offset + 1)
+                    }))
+                    onFinished(items)
+                } else {
+                    onFinished(nil)
+                }
+            })
+        } else {
+            onFinished(nil)
+        }
     }
     
-    func loadTopStories(completionBlock: @escaping (_: [ItemData]?) -> ()) {
+    static func loadItemFully(item: ItemData, onFinished: @escaping (_ success: Bool) -> ()) {
+        if let fullURL = hnBaseURL.appendingPathComponent("item/\(item.itemID).json") {
+            Alamofire.request(fullURL).responseJSON { (response: DataResponse) in
+                if let json = response.result.value, let dict = json as? [String: AnyObject] {
+                    item.setAllFields(dict: dict)
+                    onFinished(true)
+                } else {
+                    onFinished(false)
+                }
+            }
+        } else {
+            onFinished(false)
+        }
+    }
+    
+    
+    // Old code to be replaced...
+    static func loadTopStories(completionBlock: @escaping (_: [ItemData]?) -> ()) {
         Alamofire.request(hnBaseURL.appendingPathComponent("topstories.json")!).responseJSON { (response: DataResponse) in
             var stories: [ItemData]? = nil
             if let json = response.result.value {
@@ -33,30 +63,18 @@ class HNDataLoader {
         }
     }
     
-    func fullyLoadItem(item: ItemData, completionBlock: @escaping (_: ItemData?) -> ()) {
-        Alamofire.request(hnBaseURL.appendingPathComponent("item/\(item.itemID).json")!).responseJSON { (response: DataResponse) in
-            if let json = response.result.value {
-                let dict = json as! [String: AnyObject]
-                item.setAllFields(dict: dict)
-                completionBlock(item)
-            } else {
-                completionBlock(nil)
-            }
-        }
-    }
-    
-    func loadTopLevelComments(item: ItemData, completionBlock: @escaping () -> ()) {
+    static func loadTopLevelComments(item: ItemData, onFinished: @escaping () -> ()) {
         if let children = item.children {
             let commentsToLoad = children.count
             var commentsLoaded = 0
             let lock = DispatchQueue(label: "com.tateallen.commentlock")
             for child in children {
                 // if !child.fullyLoaded {
-                    self.fullyLoadItem(item: child, completionBlock: { (itemData: ItemData?) in
+                    self.loadItemFully(item: child, onFinished: { (success: Bool) in
                         lock.sync {
                             commentsLoaded += 1
                             if commentsLoaded >= commentsToLoad {
-                                completionBlock()
+                                onFinished()
                             }
                         }
                     })
@@ -65,7 +83,7 @@ class HNDataLoader {
         }
     }
     
-    func loadCommentTree(item: ItemData, completionBlock: @escaping () -> ()) {
+    static func loadCommentTree(item: ItemData, completionBlock: @escaping () -> ()) {
         let items = Queue<ItemData>()
         items.append(newElement: item)
         
@@ -91,23 +109,5 @@ class HNDataLoader {
                 }
             })
         }
-        
-        
-//        if let children = item.children {
-//            for child in children {
-//                if !child.fullyLoaded {
-//                    Alamofire.request(hnBaseURL.appendingPathComponent("item/\(child.itemID).json")!).responseJSON(completionHandler: { (response: DataResponse) in
-//                        if let json = response.result.value {
-//                            let dict = json as! [String: AnyObject]
-//                            child.setAllFields(dict: dict)
-//                            
-//                            self.loadCommentTree(item: child, completionBlock: { (items: [ItemData]?) in
-//                                
-//                            })
-//                        }
-//                    })
-//                }
-//            }
-//        }
     }
 }

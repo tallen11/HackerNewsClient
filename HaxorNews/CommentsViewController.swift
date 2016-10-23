@@ -21,7 +21,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationItem.title = "Comments"
         self.commentsTableView.alpha = 0.0
         
-        HNDataLoader.instance.loadTopLevelComments(item: self.story!) {
+        HNDataLoader.loadTopLevelComments(item: self.story!) {
             for comment in self.story!.children! {
                 self.dataSource.append((item: comment, level: 1))
             }
@@ -88,7 +88,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         let item = self.dataSource[parentIndexPath.row].item
         let level = self.dataSource[parentIndexPath.row].level
         let ip = IndexPath(row: parentIndexPath.row, section: parentIndexPath.section)
-        HNDataLoader.instance.loadTopLevelComments(item: item) {
+        HNDataLoader.loadTopLevelComments(item: item) {
             for sub in item.children!.reversed() {
                 self.dataSource.insert((item: sub, level: level + 1), at: ip.row + 1)
                 self.commentsTableView.beginUpdates()
