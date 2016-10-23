@@ -35,7 +35,7 @@ extension Date {
             smallestWholeString = smallestWholeString.substring(to: smallestWholeString.index(before: smallestWholeString.endIndex))
         }
         
-        return "\(final) \(smallestWholeString) ago"
+        return "\(final) \(smallestWholeString)"
     }
 }
 

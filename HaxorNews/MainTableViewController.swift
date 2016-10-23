@@ -81,7 +81,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         cell.rankLabel.text = "\(data.rank)"
         cell.titleLabel.text = data.title ?? "Error loading..."
         cell.urlLabel.text = "(\(data.url?.host ?? "text story"))"
-        cell.authorTimeLabel.text = "by \(data.author ?? "unknown") \(data.time?.elapsedTimePretty() ?? "")"
+        cell.authorTimeLabel.text = "by \(data.author ?? "unknown") \(data.time?.elapsedTimePretty() ?? "") ago"
         cell.scoreLabel.text = "\(data.score ?? 0) ▴" //
         cell.commentsLabel.text = "\(data.descendentsCount ?? 0)"
         cell.indexPath = indexPath
@@ -161,6 +161,11 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
                 let vc = segue.destination as! CommentsViewController
                 vc.story = ItemData(other: data)
             }
+        } else if segue.identifier == "view_userinfo" {
+            if let userID = sender as? String {
+                let vc = segue.destination as! UserInfoTableViewController
+                vc.userID = userID
+            }
         }
     }
     
@@ -172,17 +177,21 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         return true
     }
     
-//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let action = UITableViewRowAction(style: .default, title: "View Comments") { (action: UITableViewRowAction, indexPath: IndexPath) in
-//            print("kek")
-//        }
-//        
-//        action.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
-//        
-//        return [action]
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        
-//    }
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let data = self.dataSource[indexPath.row]
+        if let author = data.author {
+            let action = UITableViewRowAction(style: .default, title: "\(author)") { (action: UITableViewRowAction, indexPath: IndexPath) in
+                self.performSegue(withIdentifier: "view_userinfo", sender: author)
+            }
+            
+            action.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
+            return [action]
+        }
+        
+        return nil
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+    }
 }

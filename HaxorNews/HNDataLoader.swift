@@ -46,6 +46,22 @@ class HNDataLoader {
         }
     }
     
+    static func loadUser(userID: String, onFinished: @escaping (_ user: UserData?) -> ()) {
+        if let fullURL = hnBaseURL.appendingPathComponent("user/\(userID).json") {
+            Alamofire.request(fullURL).responseJSON(completionHandler: { (response: DataResponse) in
+                if let json = response.result.value, let dict = json as? [String: AnyObject] {
+                    let user = UserData(userID: userID)
+                    user.setAllFields(dict: dict)
+                    onFinished(user)
+                } else {
+                    onFinished(nil)
+                }
+            })
+        } else {
+            onFinished(nil)
+        }
+    }
+    
     
     // Old code to be replaced...
     static func loadTopStories(completionBlock: @escaping (_: [ItemData]?) -> ()) {
