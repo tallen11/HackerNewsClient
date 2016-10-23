@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum HNItemType {
     case Job
@@ -26,7 +27,7 @@ class ItemData {
     var deleted: Bool?
     var dead: Bool?
     var url: NSURL?
-    var text: String?
+    var text: NSAttributedString?
     var author: String?
     var descendentsCount: Int?
     var children: [ItemData]?
@@ -70,7 +71,9 @@ class ItemData {
         if let url = dict["url"] as? String {
             self.url = NSURL(string: url)
         } else if let text = dict["text"] as? String {
-            self.text = text
+            let str = text + String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", "Avenir Next", 12.0).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let htmlText = try! NSAttributedString(data: str.data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+            self.text = htmlText
         }
         
         self.deleted = dict["deleted"] as? Bool

@@ -32,7 +32,7 @@ class UserInfoTableViewController: UITableViewController {
             if let user = user {
                 self.karmaLabel.text = "\(user.karma ?? 0)"
                 self.memberSinceLabel.text = user.creationDate!.elapsedTimePretty()
-                self.aboutLabel.text = user.about ?? ""
+                self.aboutLabel.attributedText = user.about ?? NSAttributedString(string: "")
                 self.tableView.reloadData()
                 self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
             }

@@ -65,16 +65,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             cell.infoLabel.text = "\(data.author ?? "unknown")"
             cell.timeLabel.text = "\(data.time!.elapsedTimePretty()) ago"
-            do {
-                let str = (data.text ?? "error loading...") + String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", cell.contentLabel.font.fontName, cell.contentLabel.font.pointSize).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                let htmlText = try NSAttributedString(data: str.data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                cell.contentLabel.attributedText = htmlText
-            } catch {
-                cell.contentLabel.text = data.text ?? "error loading..."
-            }
-            
-            cell.setIndent(level: level)
+            cell.contentLabel.attributedText = data.text ?? NSAttributedString(string: "error loading...")
         }
+        
+        cell.setIndent(level: level)
         
         return cell
     }
