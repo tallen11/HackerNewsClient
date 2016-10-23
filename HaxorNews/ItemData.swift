@@ -40,6 +40,31 @@ class ItemData {
         self.fullyLoaded = false
     }
     
+    init(other: ItemData) {
+        self.itemID = other.itemID
+        self.rank = other.rank
+        self.fullyLoaded = other.fullyLoaded
+        self.title = other.title
+        self.deleted = other.deleted
+        self.dead = other.dead
+        self.url = other.url
+        self.text = other.text
+        self.author = other.author
+        self.descendentsCount = other.descendentsCount
+        if let otherChildren = other.children {
+            self.children = [ItemData]()
+            for child in otherChildren {
+                self.children!.append(ItemData(other: child))
+            }
+        } else {
+            self.children = nil
+        }
+        
+        self.score = other.score
+        self.time = other.time
+        self.type = other.type
+    }
+    
     func setAllFields(dict: [String: AnyObject]) {
         self.title = dict["title"] as? String
         if let url = dict["url"] as? String {

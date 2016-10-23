@@ -159,7 +159,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
             if let indexPath = sender as? IndexPath {
                 let data = self.dataSource[indexPath.row]
                 let vc = segue.destination as! CommentsViewController
-                vc.story = data
+                vc.story = ItemData(other: data)
             }
         }
     }
