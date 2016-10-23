@@ -11,14 +11,6 @@ import SafariServices
 
 class MainTableViewController: UITableViewController, MainTableViewCellDelegate {
     
-//    private var dataSource = [ItemData]()
-//    private var allStories = [ItemData]()
-//    private var lastIndexLoaded = 0
-//    private let batchSize = 30
-//    private var loading = false
-//    private var itemsToLoad = 0
-//    private var itemsLoaded = 0
-    
     private let storyLoader = StoryLoader()
     private var dataSource = [ItemData]()
 
@@ -47,62 +39,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
                 }
             })
         }
-        
-//        HNDataLoader.loadTopStories { (stories: [ItemData]?) in
-//            if let stories = stories {
-//                for i in 0..<stories.count {
-//                    self.allStories.append(stories[i])
-//                }
-//                
-//                self.loadNextBatch(fromScrolling: false, completionBlock: {
-//                    self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
-//                })
-//            }
-//        }
     }
-    
-//    private func loadNextBatch(fromScrolling: Bool, fadeInOut: Bool = false, completionBlock: (() -> ())?) {
-//        if self.lastIndexLoaded == self.allStories.count - 1 {
-//            return
-//        }
-//        
-//        self.itemsToLoad = min(self.batchSize, self.allStories.count - (self.lastIndexLoaded + 1))
-//        self.loading = true
-//        self.itemsLoaded = 0
-//        for i in max(self.lastIndexLoaded-1, 0)..<self.itemsToLoad + self.lastIndexLoaded {
-//            HNDataLoader.fullyLoadItem(item: self.allStories[i], completionBlock: { (story: ItemData?) in
-//                if let story = story {
-//                    self.dataSource.append(story)
-//                }
-//                
-//                self.itemsLoaded += 1
-//                if self.itemsLoaded == self.itemsToLoad {
-//                    self.loading = false
-//                    self.dataSource.sort(by: { (item1: ItemData, item2: ItemData) -> Bool in
-//                        return item1.rank < item2.rank
-//                    })
-//                    
-//                    DispatchQueue.main.async {
-//                        if fadeInOut {
-//                            self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
-//                                self.tableView.reloadData()
-//                                completionBlock?()
-//                            }
-//                        } else {
-//                            if fromScrolling {
-//                                self.tableView.reloadSections([0], with: .bottom)
-//                            } else {
-//                                self.tableView.reloadData()
-//                            }
-//                            completionBlock?()
-//                        }
-//                    }
-//                }
-//            })
-//        }
-//        
-//        self.lastIndexLoaded += self.itemsToLoad
-//    }
     
     func refreshStories() {
         self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
@@ -116,26 +53,6 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
                 }
             })
         }
-        
-//        HNDataLoader.loadTopStories { (stories: [ItemData]?) in
-//            if let stories = stories {
-//                self.tableView.fadeOut(duration: 0.25, delay: 0.0, completion: { (finished: Bool) in
-//                    self.dataSource.removeAll(keepingCapacity: true)
-//                    self.allStories.removeAll(keepingCapacity: true)
-//                    self.lastIndexLoaded = 0
-//                    self.loading = false
-//                    self.itemsToLoad = 0
-//                    self.itemsLoaded = 0
-//                    self.allStories.append(contentsOf: stories)
-//                    self.tableView.reloadData()
-//                    
-//                    self.loadNextBatch(fromScrolling: false, fadeInOut: false, completionBlock: {
-//                        self.refreshControl?.endRefreshing()
-//                        self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
-//                    })
-//                })
-//            }
-//        }
     }
     
     func viewComments(indexPath: IndexPath) {
