@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dKA-nE-a5s" id="DFt-9H-rO3">
-                                    <frame key="frameInset" width="375" height="56.5"/>
+                                    <frame key="frameInset" width="375" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Post Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pr-AX-FJF">
@@ -50,17 +50,16 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5C-MT-Lt9">
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFE-B9-frt">
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="10"/>
                                                     <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="OFE-B9-frt" firstAttribute="centerY" secondItem="m5C-MT-Lt9" secondAttribute="centerY" id="5Qw-9T-mhI"/>
-                                                <constraint firstItem="OFE-B9-frt" firstAttribute="leading" secondItem="m5C-MT-Lt9" secondAttribute="leading" constant="8" id="G9q-nw-L02"/>
+                                                <constraint firstAttribute="trailing" secondItem="OFE-B9-frt" secondAttribute="trailing" constant="8" id="Ee3-Ou-qbb"/>
+                                                <constraint firstAttribute="bottom" secondItem="OFE-B9-frt" secondAttribute="bottom" constant="8" id="VLF-cd-r3V"/>
                                                 <constraint firstAttribute="width" constant="62.5" id="X5m-tp-1Wk"/>
-                                                <constraint firstAttribute="trailing" secondItem="OFE-B9-frt" secondAttribute="trailing" constant="8" id="jfs-9M-GV9"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -100,7 +99,21 @@
                             <outlet property="delegate" destination="S8K-7S-FuP" id="zq9-2a-XCK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="kvt-hg-7vZ"/>
+                    <navigationItem key="navigationItem" id="kvt-hg-7vZ">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="RDv-Ma-Us7">
+                            <rect key="frame" x="97" y="7" width="182" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Top"/>
+                                <segment title="New"/>
+                                <segment title="Best"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentChangedWithSender:" destination="S8K-7S-FuP" eventType="valueChanged" id="xhf-iA-Xva"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="IyJ-wf-hnx">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -108,7 +121,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTj-po-Lxg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1108" y="-36"/>
+            <point key="canvasLocation" x="1108" y="-36.431784107946029"/>
         </scene>
         <!--User Info Table View Controller-->
         <scene sceneID="jYj-MK-ohW">
@@ -232,9 +245,34 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xTf-J8-PuR">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="cLd-hD-0Ez">
+                                    <rect key="frame" x="0.0" y="64" width="375" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNc-SZ-upQ">
+                                            <attributedString key="attributedText">
+                                                <fragment content="Text or url">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="17" name="AvenirNext-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="CNc-SZ-upQ" firstAttribute="top" secondItem="cLd-hD-0Ez" secondAttribute="top" constant="8" id="GVc-ai-Ho9"/>
+                                        <constraint firstAttribute="bottom" secondItem="CNc-SZ-upQ" secondAttribute="bottom" constant="9" id="PN8-c6-9Br"/>
+                                        <constraint firstAttribute="trailing" secondItem="CNc-SZ-upQ" secondAttribute="trailing" constant="8" id="e20-eH-lj2"/>
+                                        <constraint firstItem="CNc-SZ-upQ" firstAttribute="leading" secondItem="cLd-hD-0Ez" secondAttribute="leading" constant="8" id="tcJ-Xr-ncd"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="comment_cell" rowHeight="59" id="kYn-wt-9Og" customClass="CommentsTableViewCell" customModule="HaxorNews" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="59"/>
+                                        <rect key="frame" x="0.0" y="130" width="375" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kYn-wt-9Og" id="m07-tQ-aKp">
                                             <frame key="frameInset" width="375" height="59"/>
@@ -300,11 +338,12 @@
                     </view>
                     <connections>
                         <outlet property="commentsTableView" destination="xTf-J8-PuR" id="Glo-e0-Kih"/>
+                        <outlet property="textOrURLLabel" destination="CNc-SZ-upQ" id="A2d-e2-noW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmO-oQ-Pki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2002" y="408"/>
+            <point key="canvasLocation" x="2000.8" y="407.0464767616192"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4OW-VV-Pov">

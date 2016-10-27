@@ -13,6 +13,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
     
     private let storyLoader = StoryLoader()
     private var dataSource = [ItemData]()
+    private var currentSelectedSegment = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,12 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
         self.tableView.alpha = 0.0
         self.refreshControl?.addTarget(self, action: #selector(MainTableViewController.refreshStories), for: .valueChanged)
         
-        self.storyLoader.loadTopStoriesShallow { (storiesLoaded: Int) in
+        if let segmentedControl = self.navigationItem.titleView as? UISegmentedControl {
+            let attr = NSDictionary(object: UIFont(name: "Avenir Next", size: 12.0)!, forKey: NSFontAttributeName as NSCopying)
+            segmentedControl.setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
+        }
+        
+        self.storyLoader.loadStoriesShallow(subPath: "topstories.json") { (storiesLoaded: Int) in
             self.storyLoader.loadNextBatch(onFinished: { (items: [ItemData]) in
                 DispatchQueue.main.async {
                     self.dataSource.removeAll(keepingCapacity: true)
@@ -43,7 +49,7 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
     
     func refreshStories() {
         self.tableView.fadeOut(duration: 0.25, delay: 0.0) { (finished: Bool) in
-            self.storyLoader.refreshTopStories(onFinished: { (items: [ItemData]) in
+            self.storyLoader.refreshStories(onFinished: { (items: [ItemData]) in
                 DispatchQueue.main.async {
                     self.dataSource.removeAll(keepingCapacity: true)
                     self.dataSource.append(contentsOf: items)
@@ -193,5 +199,52 @@ class MainTableViewController: UITableViewController, MainTableViewCellDelegate 
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
+    }
+    
+    @IBAction func segmentChanged(sender: UISegmentedControl) {
+        let seg = sender.selectedSegmentIndex
+        if seg != self.currentSelectedSegment {
+            self.tableView.fadeOut(duration: 0.25, delay: 0.0, completion: { (finished: Bool) in
+                switch seg {
+                case 0:
+                    self.storyLoader.loadStoriesShallow(subPath: "topstories.json", onFinished: { (storiesLoaded: Int) in
+                        self.storyLoader.loadNextBatch(onFinished: { (items: [ItemData]) in
+                            DispatchQueue.main.async {
+                                self.dataSource.removeAll(keepingCapacity: true)
+                                self.dataSource.append(contentsOf: items)
+                                self.tableView.reloadData()
+                                self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+                            }
+                        })
+                    })
+                case 1:
+                    self.storyLoader.loadStoriesShallow(subPath: "newstories.json", onFinished: { (storiesLoaded: Int) in
+                        self.storyLoader.loadNextBatch(onFinished: { (items: [ItemData]) in
+                            DispatchQueue.main.async {
+                                self.dataSource.removeAll(keepingCapacity: true)
+                                self.dataSource.append(contentsOf: items)
+                                self.tableView.reloadData()
+                                self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+                            }
+                        })
+                    })
+                case 2:
+                    self.storyLoader.loadStoriesShallow(subPath: "beststories.json", onFinished: { (storiesLoaded: Int) in
+                        self.storyLoader.loadNextBatch(onFinished: { (items: [ItemData]) in
+                            DispatchQueue.main.async {
+                                self.dataSource.removeAll(keepingCapacity: true)
+                                self.dataSource.append(contentsOf: items)
+                                self.tableView.reloadData()
+                                self.tableView.fadeIn(duration: 0.25, delay: 0.0, completion: nil)
+                            }
+                        })
+                    })
+                default:
+                    break
+                }
+            })
+            
+            self.currentSelectedSegment = seg
+        }
     }
 }

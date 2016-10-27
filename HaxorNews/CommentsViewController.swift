@@ -11,15 +11,24 @@ import UIKit
 class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var commentsTableView: UITableView!
+    @IBOutlet weak var textOrURLLabel: UILabel!
     var story: ItemData?
     var dataSource = [(item: ItemData, level: Int)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!]
         self.navigationItem.title = "Comments"
-        self.commentsTableView.alpha = 0.0
+        if self.story!.descendentsCount != 0 {
+            self.commentsTableView.alpha = 0.0
+        }
+        
+        if let url = self.story!.url {
+            self.textOrURLLabel.text = url.absoluteString!
+        } else if let text = self.story!.text {
+            self.textOrURLLabel.attributedText = text
+        }
         
         HNDataLoader.loadTopLevelComments(item: self.story!) {
             for comment in self.story!.children! {

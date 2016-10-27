@@ -17,6 +17,7 @@ class StoryLoader {
     private var loading = false
     private var itemsToLoad = 0
     private var itemsLoaded = 0
+    private var currentSubPath = "topstories.json"
     
     func loadTopStoriesShallow(onFinished: @escaping (_ storiesLoaded: Int) -> ()) {
         guard !self.loading else {
@@ -25,6 +26,28 @@ class StoryLoader {
         
         self.loading = true
         HNDataLoader.loadItemsShallowly(subPath: "topstories.json") { (items: [ItemData]?) in
+            if let stories = items {
+                self.fullyLoadedStories.removeAll(keepingCapacity: true)
+                self.allStories.removeAll(keepingCapacity: true)
+                self.lastIndexLoaded = 0
+                self.itemsToLoad = 0
+                self.itemsLoaded = 0
+                self.allStories.append(contentsOf: stories)
+                onFinished(stories.count)
+            } else {
+                onFinished(0)
+            }
+        }
+    }
+    
+    func loadStoriesShallow(subPath: String, onFinished: @escaping (_ storiesLoaded: Int) -> ()) {
+        guard !self.loading else {
+            return
+        }
+        
+        self.loading = true
+        self.currentSubPath = subPath
+        HNDataLoader.loadItemsShallowly(subPath: subPath) { (items: [ItemData]?) in
             if let stories = items {
                 self.fullyLoadedStories.removeAll(keepingCapacity: true)
                 self.allStories.removeAll(keepingCapacity: true)
@@ -73,6 +96,14 @@ class StoryLoader {
     
     func refreshTopStories(onFinished: @escaping (_ items: [ItemData]) -> ()) {
         self.loadTopStoriesShallow { (storiesLoaded: Int) in
+            self.loadNextBatch(onFinished: { (items: [ItemData]) in
+                onFinished(items)
+            })
+        }
+    }
+    
+    func refreshStories(onFinished: @escaping (_ items: [ItemData]) -> ()) {
+        self.loadStoriesShallow(subPath: self.currentSubPath) { (storiesLoaded: Int) in
             self.loadNextBatch(onFinished: { (items: [ItemData]) in
                 onFinished(items)
             })
